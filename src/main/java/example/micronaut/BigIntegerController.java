@@ -1,14 +1,21 @@
 package example.micronaut;
 
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Post;
 
-@Controller("/bigInteger")
+import java.math.BigInteger;
+
+@Controller("/")
 public class BigIntegerController {
 
-    @Get("/")
-    public HttpStatus index() {
-        return HttpStatus.OK;
-    }
+  @Post("/object")
+  public Value<String> forObject(@Body Value<Object> value) {
+    return new Value<>(value.getValue().getClass().getSimpleName());
+  }
+
+  @Post("/bigInteger")
+  public Value<String> forBigInteger(@Body Value<BigInteger> value) {
+    return new Value<>(value.getValue().getClass().getSimpleName());
+  }
 }
